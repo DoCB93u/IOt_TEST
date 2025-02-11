@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IOt_TEST"
+        xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d" Background="#2E2E2E"
         WindowStyle="None"
         MouseDown="Window_MouseDown"
@@ -24,12 +25,23 @@
                 <ScrollViewer>
                     <StackPanel Name="stackPanel">
                         <RadioButton MinHeight="60" Background="CornflowerBlue" Content="Ебаклак 2000" Margin="10" FontSize="22" Padding="10" Foreground="White"/>
-
                     </StackPanel>
                 </ScrollViewer>
             </Grid>
             <Grid Grid.Row="1">
                 <Button Content="Добавить новый датчик" FontSize="24" Background="CornflowerBlue" Foreground="AntiqueWhite" BorderBrush="AliceBlue" Click="AddNewSensor_Click"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Label Content="Мониторинг:" FontSize="22" Foreground="White" Margin="15, 0, 0, 0"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <oxy:PlotView x:Name="plotView"/>
             </Grid>
         </Grid>
         <Button Content="-" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,30,0" BorderThickness="2" Background="CornflowerBlue" Click="Button_Click_Minimalize" Grid.Column="1"/>
