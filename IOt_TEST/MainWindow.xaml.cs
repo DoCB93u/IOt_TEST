@@ -17,6 +17,7 @@ using Microsoft.VisualBasic;
 using System.Timers;
 using OxyPlot;
 using OxyPlot.Series;
+using OxyPlot.Axes;
 
 namespace IOt_TEST
 {
@@ -26,8 +27,12 @@ namespace IOt_TEST
     public partial class MainWindow : Window
     {
         private LineSeries _lineSeries;
+        private LineSeries _lineSeriesMax;
+        private LineSeries _lineSeriesMin;
         private Timer _timer;
-        private int _index;
+        private int _index = 0;
+        private int _indexIndMax = 0;
+        private int _indexIndMin = 0;
         private Random _random;
 
         public MainWindow()
@@ -76,19 +81,57 @@ namespace IOt_TEST
         private void InitializePlot()
         {
             var plotModel = new PlotModel { Title = "" };
-            _lineSeries = new LineSeries()
+
+            // Create axes and set their properties to disable zoom and enable horizontal pan
+            var xAxis = new LinearAxis
+            {
+                Position = AxisPosition.Bottom,
+                Minimum = 0,
+                Maximum = 100,
+                IsZoomEnabled = false,
+                IsPanEnabled = true
+            };
+
+            var yAxis = new LinearAxis
+            {
+                Position = AxisPosition.Left,
+                Minimum = 0,
+                Maximum = 1,
+                IsZoomEnabled = false,
+                IsPanEnabled = false
+            };
+
+            // Add axes to the plot model
+            plotModel.Axes.Add(xAxis);
+            plotModel.Axes.Add(yAxis);
+
+            // Create the line series
+            _lineSeries = new LineSeries
             {
                 Color = OxyColors.CornflowerBlue
             };
             plotModel.Series.Add(_lineSeries);
-            plotView.Model = plotModel;
 
+            _lineSeriesMax = new LineSeries
+            {
+                Color = OxyColors.Red
+            };
+            plotModel.Series.Add(_lineSeriesMax);
+
+            _lineSeriesMin = new LineSeries
+            { 
+                Color = OxyColors.Green 
+            };
+            plotModel.Series.Add(_lineSeriesMin);
+
+            plotView.Model = plotModel;
             _random = new Random();
         }
 
+
         private void StartTimer()
         {
-            _timer = new Timer(3000); // Обновление каждые 1000 мс (1 секунда)
+            _timer = new Timer(1000); // Обновление каждые 1000 мс (1 секунда)
             _timer.Elapsed += UpdatePlot;
             _timer.Start();
         }
@@ -97,7 +140,19 @@ namespace IOt_TEST
         {
             Dispatcher.Invoke(() =>
             {
-                _lineSeries.Points.Add(new DataPoint(_index++, _random.NextDouble()));
+                double check;
+
+                check = _random.NextDouble();  
+
+                _lineSeries.Points.Add(new DataPoint(_index+=6, check));
+                _lineSeriesMax.Points.Add(new DataPoint(_indexIndMax+=10, 0.8));
+                _lineSeriesMin.Points.Add(new DataPoint(_indexIndMin+=10, 0.1));
+
+                if(check > 0.8)
+                {
+                    MessageBox.Show("Достигнуты критические значения!");
+                }
+
                 plotView.InvalidatePlot(true);
             });
         }
