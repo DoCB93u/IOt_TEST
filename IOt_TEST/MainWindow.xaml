@@ -36,6 +36,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="10*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Label Content="Мониторинг:" FontSize="22" Foreground="White" Margin="15, 0, 0, 0"/>
@@ -43,6 +44,20 @@
             <Grid Grid.Row="1">
                 <oxy:PlotView x:Name="plotView"/>
             </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Button Content="Доб. мин." Background="CornflowerBlue" Foreground="AntiqueWhite" BorderBrush="AliceBlue" Click="AddMinimum_Click"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Button Content="Доб. макс." Background="CornflowerBlue" Foreground="AntiqueWhite" BorderBrush="AliceBlue" Click="AddMaximum_Click"/>
+                </Grid>
+            </Grid>
+                  
         </Grid>
         <Button Content="-" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,30,0" BorderThickness="2" Background="CornflowerBlue" Click="Button_Click_Minimalize" Grid.Column="1"/>
         <Button Content="X" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="Red" BorderThickness="2" Background="CornflowerBlue" Click="Button_Click_Shutdown" Grid.Column="1"/>

@@ -18,6 +18,7 @@ using System.Timers;
 using OxyPlot;
 using OxyPlot.Series;
 using OxyPlot.Axes;
+using OxyPlot.Annotations;
 
 namespace IOt_TEST
 {
@@ -34,6 +35,12 @@ namespace IOt_TEST
         private int _indexIndMax = 0;
         private int _indexIndMin = 0;
         private Random _random;
+        private bool MaximumStatus = false;
+        private bool MinimumStatus = false;
+        private float Maximum;
+        private float Minimum;
+        private LineAnnotation _maximumLine;
+        private LineAnnotation _minimumLine;
 
         public MainWindow()
         {
@@ -145,16 +152,98 @@ namespace IOt_TEST
                 check = _random.NextDouble();  
 
                 _lineSeries.Points.Add(new DataPoint(_index+=6, check));
-                _lineSeriesMax.Points.Add(new DataPoint(_indexIndMax+=10, 0.8));
-                _lineSeriesMin.Points.Add(new DataPoint(_indexIndMin+=10, 0.1));
 
-                if(check > 0.8)
+                if(_maximumLine != null && check > Maximum)
                 {
-                    MessageBox.Show("Достигнуты критические значения!");
+                    MessageBox.Show("Достигнуты МАКСИМАЛЬНЫЕ критические значения!");
+                }
+
+                if (_minimumLine != null && check < Minimum)
+                {
+                    MessageBox.Show("Достигнуты МИНИМАЛЬНЫЕ критические значения!");
                 }
 
                 plotView.InvalidatePlot(true);
             });
+        }
+
+
+        private void AddMaximumLine(double yPosition)
+        {
+            _maximumLine = new LineAnnotation
+            {
+                Type = LineAnnotationType.Horizontal,
+                Y = yPosition,
+                Color = OxyColors.Red,
+                LineStyle = LineStyle.Solid,
+                Text = $"Y = {yPosition}",
+                TextColor = OxyColors.Red,
+                TextHorizontalAlignment = OxyPlot.HorizontalAlignment.Center
+            };
+            plotView.Model.Annotations.Add(_maximumLine);
+            plotView.InvalidatePlot(true);
+        }
+
+        private void AddMinimumLine(double yPosition)
+        {
+            _minimumLine = new LineAnnotation
+            {
+                Type = LineAnnotationType.Horizontal,
+                Y = yPosition,
+                Color = OxyColors.Green,
+                LineStyle = LineStyle.Solid,
+                Text = $"Y = {yPosition}",
+                TextColor = OxyColors.Green,
+                TextHorizontalAlignment = OxyPlot.HorizontalAlignment.Center
+            };
+            plotView.Model.Annotations.Add(_minimumLine);
+            plotView.InvalidatePlot(true);
+        }
+
+        private void RemoveHorizontalLine()
+        {
+            if (_maximumLine != null)
+            {
+                plotView.Model.Annotations.Remove(_maximumLine);
+                plotView.InvalidatePlot(true);
+                _maximumLine = null;
+            }
+
+            if (_minimumLine != null)
+            {
+                plotView.Model.Annotations.Remove(_minimumLine);
+                plotView.InvalidatePlot(true);
+                _minimumLine = null;
+            }
+        }
+
+
+        private void AddMinimum_Click(object sender, RoutedEventArgs e)
+        {
+                if (_minimumLine != null)
+                {
+                    RemoveHorizontalLine();
+                }
+
+                string MinimumStr = Interaction.InputBox("Введите минимум (для дробных используйте запятую)", "Окно ввода");
+
+                float.TryParse(MinimumStr, out Minimum);
+
+                AddMinimumLine(Minimum);
+            }
+
+        private void AddMaximum_Click(object sender, RoutedEventArgs e)
+        {
+            if(_maximumLine != null)
+            {
+                RemoveHorizontalLine();
+            }
+
+            string MaximumStr = Interaction.InputBox("Введите максимум (для дробных используйте запятую)", "Окно ввода");
+
+            float.TryParse(MaximumStr, out Maximum);
+
+            AddMaximumLine(Maximum);
         }
     }
 }
