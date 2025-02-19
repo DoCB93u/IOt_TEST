@@ -8,9 +8,27 @@
         mc:Ignorable="d" Background="#2E2E2E"
         WindowStyle="None"
         MouseDown="Window_MouseDown"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="450" Width="850"
         MinHeight="450" MinWidth="800">
-    
+
+    <Window.Resources>
+        <Style x:Key="RoundedButton" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="CornflowerBlue"
+                                BorderBrush="AliceBlue"
+                                BorderThickness="3"
+                                CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -29,7 +47,7 @@
                 </ScrollViewer>
             </Grid>
             <Grid Grid.Row="1">
-                <Button Content="Добавить новый датчик" FontSize="24" Background="CornflowerBlue" Foreground="AntiqueWhite" BorderBrush="AliceBlue" Click="AddNewSensor_Click"/>
+                <Button Content="Добавить новый датчик" Style="{StaticResource RoundedButton}" FontSize="24" Margin="5" Foreground="AntiqueWhite" Click="AddNewSensor_Click"/>
             </Grid>
         </Grid>
         <Grid Grid.Column="1">
@@ -42,7 +60,7 @@
                 <Label Content="Мониторинг:" FontSize="22" Foreground="White" Margin="15, 0, 0, 0"/>
             </Grid>
             <Grid Grid.Row="1">
-                <oxy:PlotView x:Name="plotView"/>
+                <oxy:PlotView x:Name="plotView" Margin="5"/>
             </Grid>
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
@@ -51,15 +69,18 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
-                    <Button Content="Доб. мин." Background="CornflowerBlue" Foreground="AntiqueWhite" BorderBrush="AliceBlue" Click="AddMinimum_Click"/>
+                    <Button Content="Доб. мин." Style="{StaticResource RoundedButton}" Margin="5" Foreground="AntiqueWhite" Click="AddMinimum_Click"/>
                 </Grid>
                 <Grid Grid.Column="1">
-                    <Button Content="Доб. макс." Background="CornflowerBlue" Foreground="AntiqueWhite" BorderBrush="AliceBlue" Click="AddMaximum_Click"/>
+                    <Button Content="Доб. макс." Style="{StaticResource RoundedButton}" Margin="5" Foreground="AntiqueWhite" Click="AddMaximum_Click"/>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Button Content="Очистить график" Style="{StaticResource RoundedButton}" Margin="5" Foreground="AntiqueWhite" Click="Clear_Click"/>
                 </Grid>
             </Grid>
-                  
+
         </Grid>
-        <Button Content="-" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,30,0" BorderThickness="2" Background="CornflowerBlue" Click="Button_Click_Minimalize" Grid.Column="1"/>
-        <Button Content="X" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="Red" BorderThickness="2" Background="CornflowerBlue" Click="Button_Click_Shutdown" Grid.Column="1"/>
+        <Button Content="-" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,30,0" Foreground="White" BorderThickness="2" Background="#2E2E2E" Click="Button_Click_Minimalize" Grid.Column="1"/>
+        <Button Content="X" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="White" BorderThickness="2" Background="#2E2E2E" Click="Button_Click_Shutdown" Grid.Column="1"/>
     </Grid>
 </Window>
