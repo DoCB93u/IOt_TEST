@@ -75,7 +75,7 @@
                     <Button Content="Доб. макс." Style="{StaticResource RoundedButton}" Margin="5" Foreground="AntiqueWhite" Click="AddMaximum_Click"/>
                 </Grid>
                 <Grid Grid.Column="2">
-                    <Button Content="Очистить график" Style="{StaticResource RoundedButton}" Margin="5" Foreground="AntiqueWhite" Click="Clear_Click"/>
+                    
                 </Grid>
             </Grid>
 
