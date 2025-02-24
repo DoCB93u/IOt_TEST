@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Collections;
 using Microsoft.VisualBasic;
 using System.Timers;
@@ -30,8 +25,8 @@ namespace IOt_TEST
     {
         // Добавляем поля для ThingsBoard
         private ThingsBoardClient _thingsboardClient;
-        private readonly string _deviceId = "9372ef50-f285-11ef-a841-0dcdd9a4d4a5"; // Замените на ваш ID устройства
-        private readonly string _telemetryKey = "temperature"; // Замените на ключ телеметрии
+        private readonly string _deviceId = Config.GetDeviceID(); //
+        private readonly string _telemetryKey = Config.GetTelemetryKey();
         private bool _isConnected = false;
 
         // Остальные существующие поля оставляем без изменений...
@@ -75,8 +70,8 @@ namespace IOt_TEST
             var yAxis = new LinearAxis
             {
                 Position = AxisPosition.Left,
-                Minimum = 0,
-                Maximum = 1,
+                Minimum = -15,
+                Maximum = 100,
                 IsZoomEnabled = false,
                 IsPanEnabled = false
             };
@@ -119,8 +114,8 @@ namespace IOt_TEST
         {
             try
             {
-                _thingsboardClient = new ThingsBoardClient("http://localhost:9088");
-                await _thingsboardClient.AuthenticateAsync("tenant@thingsboard.org", "tenant");
+                _thingsboardClient = new ThingsBoardClient(Config.GetHost()); //хост
+                await _thingsboardClient.AuthenticateAsync("tenant@thingsboard.org", "tenant"); //логин и пароль
                 _isConnected = true;
             }
             catch (Exception ex)

@@ -42,7 +42,11 @@
             <Grid Grid.Row="0">
                 <ScrollViewer>
                     <StackPanel Name="stackPanel">
-                        <RadioButton MinHeight="60" Background="CornflowerBlue" Content="Ебаклак 2000" Margin="10" FontSize="22" Padding="10" Foreground="White"/>
+                        <RadioButton MinHeight="60" Background="CornflowerBlue" Content="ESSEX FS80-9 Temp." Margin="10" FontSize="22" Padding="10" Foreground="White"/>
+                        <RadioButton MinHeight="60" Background="CornflowerBlue" Content="Virtex BNG-L 20/33" Margin="10" FontSize="22" Padding="10" Foreground="White"/>
+                        <RadioButton MinHeight="60" Background="CornflowerBlue" Content="SENSEL ZMG-90/55 lurk." Margin="10" FontSize="22" Padding="10" Foreground="White"/>
+                        <RadioButton MinHeight="60" Background="CornflowerBlue" Content="Banshee ENP909/54" Margin="10" FontSize="22" Padding="10" Foreground="White"/>
+                        <RadioButton MinHeight="60" Background="CornflowerBlue" Content="ALTER basics SFX5.6 margin" Margin="10" FontSize="22" Padding="10" Foreground="White"/>
                     </StackPanel>
                 </ScrollViewer>
             </Grid>

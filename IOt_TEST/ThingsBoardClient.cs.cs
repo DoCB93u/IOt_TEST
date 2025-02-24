@@ -52,7 +52,7 @@ namespace IOt_TEST
             try
             {
                 var endTs = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-                var startTs = endTs - 1000; // последняя секунда
+                var startTs = endTs - 7000; // последние 7 секунд 
 
                 var response = await _client.GetAsync(
                     $"{_baseUrl}/api/plugins/telemetry/DEVICE/{deviceId}/values/timeseries" +
